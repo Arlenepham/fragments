@@ -11,5 +11,8 @@
     "url": "git+https://github.com/Arlenepham/fragments.git"
   },
   "author": "Arlene Pham",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "3.3.3"
+  }
 }
