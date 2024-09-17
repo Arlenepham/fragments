@@ -40,6 +40,6 @@ jobs:
         run: npm ci
 
       - name: Run ESLint
-        run: npx eslint --config config/eslint.format.mjs .
+        run: npx eslint --config eslint.config.mjs
       
   
