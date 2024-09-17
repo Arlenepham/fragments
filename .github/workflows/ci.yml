@@ -40,7 +40,7 @@ jobs:
         run: npm ci
 
       - name: Run ESLint
-        run: "eslint --config eslint.config.mjs \"./src/**/*.js\" \"tests/**/*.js\"
+        run: npx eslint --config eslint.config.mjs
         
   unit-tests:
     name: Unit Tests
