@@ -6,6 +6,8 @@ const helmet = require('helmet');
 const compression = require('compression');
 const passport = require('passport');
 const authenticate = require('./auth');
+const { createErrorResponse }= require('./response')
+
 
 
 // author and version from our package.json file
@@ -44,13 +46,8 @@ app.use('/', require('./routes'));
 
 // Add 404 middleware to handle any requests for resources that can't be found
 app.use((req, res) => {
-  res.status(404).json({
-    status: 'error',
-    error: {
-      message: 'not found',
-      code: 404,
-    },
-  });
+  const errorResponse = createErrorResponse(404, 'not found');
+  res.status(404).json(errorResponse);
 });
 
 // Add error-handling middleware to deal with anything else
@@ -74,6 +71,8 @@ app.use((err, req, res, next) => {
     },
   });
 });
+
+
 
 // Export our `app` so we can access it in server.js
 module.exports = app;
