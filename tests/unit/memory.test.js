@@ -13,13 +13,6 @@ const {
     const fragmentId = 'fragment1';
     const fragment = { ownerId, id: fragmentId, content: 'This is a fragment.' };
     const buffer = Buffer.from('This is fragment data.');
-    let data;
-    let metadata;
-  
-    beforeEach(() => {
-      data = new MemoryDB();
-      metadata = new MemoryDB();
-    });
   
     test('writeFragment() work correctly', async () => {
       await writeFragment(fragment);
