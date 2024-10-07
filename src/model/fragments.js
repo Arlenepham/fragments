@@ -50,7 +50,7 @@ getMimeType(type) {
   static async byUser(ownerId, expand = false) {
     const fragment = listFragments(ownerId,expand) 
     if(!fragment){
-        throw new Error(`Fragment with id ${id} not found for user ${ownerId}`);
+        throw new Error(`Fragment not found for user ${ownerId}`);
     }
     return fragment;
   }
