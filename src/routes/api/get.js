@@ -1,11 +1,26 @@
 // src/routes/api/get.js
-const { createSuccessResponse } = require('./../../response')
+const { createSuccessResponse,createErrorResponse } = require('./../../response')
+const { Fragment } = require('../../model/fragments');
+const logger = require('../../logger');
+
 
 /**
  * Get a list of fragments for the current user
  */
-module.exports = (req, res) => {
-    // TODO: this is just a placeholder. To get something working, return an empty array...
-    const successResponse = createSuccessResponse({fragments:[]})
-    res.status(200).json(successResponse);
-  };
+module.exports = async (req, res) => {
+  try {
+    const ownerId = req.user; 
+    
+    logger.debug(`Fetching fragments for user: ${ownerId}`);
+    
+    // Fetch the user's fragments (only IDs by default, no need for full fragment details)
+    const fragments = await Fragment.byUser(ownerId, false); // Pass 'false' to only get IDs
+    
+    // Return a list of fragment IDs in the response
+    res.status(200).json(createSuccessResponse({fragments}));
+    
+  } catch (error) {
+    logger.error('Error fetching fragments', { error: error.message });
+    res.status(500).json(createErrorResponse(500, 'Internal Server Error'));
+  }
+};
