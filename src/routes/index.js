@@ -7,7 +7,8 @@ const { version, author } = require('../../package.json');
 // Our authentication middleware
 const { authenticate } = require('../auth');
 const { createSuccessResponse } = require('./../response')
-
+//const { rawBody } = require('./rawBody')
+//const { post } = require(`./api/fragments`)
 // Create a router that we can use to mount our API
 const router = express.Router();
 
@@ -39,6 +40,7 @@ router.get('/', (req, res) => {
     githubUrl: 'https://github.com/Arlenepham/fragments',
     version,
   });
+  //router.post('/fragments', rawBody(), post);
 });
 
 module.exports = router;
