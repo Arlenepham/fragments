@@ -1,42 +1,55 @@
-# Every docker file must begin with a FROM instruction - specify the parent image
-FROM node
 
-# Use node version 18.13.0
-FROM node:20.10.0
+# Stage 1: Build Stage
+FROM node:20.9.0-bullseye-slim as build
 
+# Set environment variables for the build stage
+ENV NODE_ENV=development
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY --chown=node:node package*.json ./
+
+# Install development dependencies (for building, testing, etc.)
+RUN npm install
+
+# Copy the rest of the source code
+COPY --chown=node:node ./src ./src
+COPY --chown=node:node ./tests ./tests
+
+# Optionally run tests or build assets
+# RUN npm test
+
+# Stage 2: Production Stage
+FROM node:20.9.0-bullseye-slim as production
+
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+
+ENV NODE_ENV=production
 LABEL maintainer="Arlene Pham <hpham32@myseneca.ca>"
 LABEL description="Fragments node.js microservice"
 
-# We default to use port 8080 in our service
+# Default to port 8080 for the service
 ENV PORT=8080
-
-# Reduce npm spam when installing within Docker
-# https://docs.npmjs.com/cli/v8/using-npm/config#loglevel
 ENV NPM_CONFIG_LOGLEVEL=warn
-
-# Disable colour when run inside Docker
-# https://docs.npmjs.com/cli/v8/using-npm/config#color
 ENV NPM_CONFIG_COLOR=false
 
-# Use /app as our working directory
+# Set up the working directory
 WORKDIR /app
 
-# Option 2: relative path - Copy the package.json and package-lock.json
-# files into the working dir (/app).  NOTE: this requires that we have
-# already set our WORKDIR in a previous step.
-COPY package*.json ./
+# Copy only the necessary files from the build stage
+COPY --from=build /app/package*.json ./
+COPY --from=build /app/src ./src
+COPY --from=build /app/tests/.htpasswd ./tests/.htpasswd
 
-# Install node dependencies defined in package-lock.json
-RUN npm install
+# Install only production dependencies
+RUN npm ci --production
 
-# Copy our HTPASSWD file
-COPY ./tests/.htpasswd ./tests/.htpasswd
+# Switch to a non-root user
+USER node
 
-# Copy src to /app/src/
-COPY ./src ./src
+# Start the container with dumb-init and run the server
+CMD ["dumb-init", "node", "server.js"]
 
-# Start the container by running our server
-CMD npm start
-
-# We run our service on port 8080
+# Expose the application port
 EXPOSE 8080
+
