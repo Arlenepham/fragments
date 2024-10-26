@@ -6,12 +6,10 @@ const wait = async (ms = 2000) => new Promise((resolve) => setTimeout(resolve, m
 
 const validTypes = [
   `text/plain`,
-  /*
-   Currently, only text/plain is supported. Others will be added later.
-
   `text/markdown`,
   `text/html`,
   `application/json`,
+  /*
   `image/png`,
   `image/jpeg`,
   `image/webp`,
@@ -118,55 +116,44 @@ describe('Fragment class', () => {
   });
 
   describe('isSupportedType()', () => {
-    test('common text types are supported, with and without charset', () => {
-      expect(Fragment.isSupportedType('text/plain')).toBe(true);
+    test('any text/* and application/json types are supported', () => {
+      validTypes.forEach((type) => {
+        expect(Fragment.isSupportedType(type)).toBe(true);
+      });
       expect(Fragment.isSupportedType('text/plain; charset=utf-8')).toBe(true);
+      expect(Fragment.isSupportedType('application/json')).toBe(true);
     });
-
+  
     test('other types are not supported', () => {
-      expect(Fragment.isSupportedType('application/octet-stream')).toBe(false);
-      expect(Fragment.isSupportedType('application/msword')).toBe(false);
+      expect(Fragment.isSupportedType('application/unsupported')).toBe(false);
       expect(Fragment.isSupportedType('audio/webm')).toBe(false);
-      expect(Fragment.isSupportedType('video/ogg')).toBe(false);
     });
   });
 
-  describe('mimeType, isText', () => {
-    test('mimeType returns the mime type without charset', () => {
+  describe('mimeType and isText', () => {
+    test('mimeType returns the type without charset', () => {
       const fragment = new Fragment({
         ownerId: '1234',
-        type: 'text/plain; charset=utf-8',
+        type: 'text/markdown; charset=utf-8',
         size: 0,
       });
-      expect(fragment.type).toEqual('text/plain; charset=utf-8');
-      expect(fragment.mimeType).toEqual('text/plain');
+      expect(fragment.mimeType).toEqual('text/markdown');
     });
-
-    test('mimeType returns the mime type if charset is missing', () => {
-      const fragment = new Fragment({ ownerId: '1234', type: 'text/plain', size: 0 });
-      expect(fragment.type).toEqual('text/plain');
-      expect(fragment.mimeType).toEqual('text/plain');
-    });
-
-    test('isText return expected results', () => {
-      // Text fragment
-      const fragment = new Fragment({
-        ownerId: '1234',
-        type: 'text/plain; charset=utf-8',
-        size: 0,
+  
+    test('isText identifies text/* types as true', () => {
+      validTypes.forEach((type) => {
+        const fragment = new Fragment({ ownerId: '1234', type, size: 0 });
+        expect(fragment.isText).toBe(type.startsWith('text/'));
       });
-      expect(fragment.isText).toBe(true);
     });
   });
 
   describe('formats', () => {
-    test('formats returns the expected result for plain text', () => {
-      const fragment = new Fragment({
-        ownerId: '1234',
-        type: 'text/plain; charset=utf-8',
-        size: 0,
+    test('formats return expected result for any text/* or application/json', () => {
+      validTypes.forEach((type) => {
+        const fragment = new Fragment({ ownerId: '1234', type, size: 0 });
+        expect(fragment.formats).toEqual([type]);
       });
-      expect(fragment.formats).toEqual(['text/plain']);
     });
   });
 

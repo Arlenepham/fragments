@@ -15,7 +15,7 @@ const {
 } = require('./data');
 
 class Fragment {
-    static supportedTypes = ['text/plain']; // Define supported types
+    static supportedTypes = ['text/plain', 'application/json',`text/markdown`, `text/html`,]; // Define supported types
     
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
     this.id = id ? id : randomUUID()
