@@ -51,8 +51,8 @@ RUN npm ci --production
 # Switch to a non-root user
 USER node
 
-# Start the container with dumb-init and run the server
-CMD ["node", "server.js"]
+# Start the container and run the server
+CMD ["node", "scr/server.js"]
 
 # Expose the application port
 EXPOSE 8080
