@@ -52,7 +52,7 @@ RUN npm ci --production
 USER node
 
 # Start the container and run the server
-CMD ["node", "scr/server.js"]
+CMD ["node", "src/server.js"]
 
 # Expose the application port
 EXPOSE 8080
