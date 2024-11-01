@@ -52,7 +52,7 @@ RUN npm ci --production
 USER node
 
 # Start the container with dumb-init and run the server
-CMD ["dumb-init", "node", "server.js"]
+CMD ["node", "server.js"]
 
 # Expose the application port
 EXPOSE 8080
