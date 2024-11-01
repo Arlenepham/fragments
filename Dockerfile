@@ -28,7 +28,7 @@ FROM node:20.9.0-bullseye-slim as production
 #     dpkg -i dumb-init_1.2.5-3_amd64.deb && \
 #     rm -rf /var/lib/apt/lists/*
 
-ENV NODE_ENV=production
+# ENV NODE_ENV=production
 LABEL maintainer="Arlene Pham <hpham32@myseneca.ca>"
 LABEL description="Fragments node.js microservice"
 
