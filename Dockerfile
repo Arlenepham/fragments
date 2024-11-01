@@ -22,7 +22,8 @@ COPY --chown=node:node ./tests ./tests
 # Stage 2: Production Stage
 FROM node:20.9.0-bullseye-slim as production
 
-RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init=1.2.5-3 && \
+rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production
 LABEL maintainer="Arlene Pham <hpham32@myseneca.ca>"
