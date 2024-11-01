@@ -32,6 +32,8 @@ app.use(helmet());
 // Use CORS middleware so we can make requests across origins
 app.use(cors());
 
+//app.use(express.text());
+
 // Use gzip/deflate compression middleware
 app.use(compression());
 
