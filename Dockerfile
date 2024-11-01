@@ -22,11 +22,11 @@ COPY --chown=node:node ./tests ./tests
 # Stage 2: Production Stage
 FROM node:20.9.0-bullseye-slim as production
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends wget && \
-    wget http://ftp.debian.org/debian/pool/main/d/dumb-init/dumb-init_1.2.5-3_amd64.deb && \
-    dpkg -i dumb-init_1.2.5-3_amd64.deb && \
-    rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && \
+#     apt-get install -y --no-install-recommends wget && \
+#     wget http://ftp.debian.org/debian/pool/main/d/dumb-init/dumb-init_1.2.5-3_amd64.deb && \
+#     dpkg -i dumb-init_1.2.5-3_amd64.deb && \
+#     rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production
 LABEL maintainer="Arlene Pham <hpham32@myseneca.ca>"
