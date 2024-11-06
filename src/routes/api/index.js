@@ -13,7 +13,10 @@ const  post  = require(`./post`)
 router.get('/fragments', require('./get'));
 // Other routes (POST, DELETE, etc.) will go here later on...
 router.post('/fragments', rawBody(), post);
-router.get('/fragments/:id',require('./getByID')); // Route to get a fragment by its ID
-
+// router.get('/fragments/:id',require('./getByID')); // Route to get a fragment by its ID
+// Define the route for GET /fragments/:id/info
+router.get('/fragments/:id/info', require('./getByID'));
+router.get('/fragments/:id.:ext', require('./convertExt'))
+router.get('/fragments/:id',require('./getByID'));
 
 module.exports = router;

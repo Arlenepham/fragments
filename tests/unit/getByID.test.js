@@ -42,4 +42,30 @@ describe('GET /v1/fragments/:id', () => {
       expect(Fragment.byId).toHaveBeenCalledWith('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a', 'fragment1-id');
   });
 
+  test('authenticated users can fetch fragment metadata by ID with /info', async () => {
+    const mockFragmentMetadata = {
+      id: 'fragment1-id',
+      ownerId: '11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a',
+      created: '2024-11-04T18:59:31.779Z',
+      updated: '2024-11-04T18:59:31.779Z',
+      type: 'text/plain',
+      size: 1024,
+    };
+
+    Fragment.byId = jest.fn().mockResolvedValue(mockFragmentMetadata);
+
+    const response = await request(app)
+      .get('/v1/fragments/fragment1-id/info')
+      .auth('user1@email.com', 'password1');
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('status', 'ok');
+    expect(response.body).toHaveProperty('fragment', mockFragmentMetadata);
+
+    expect(Fragment.byId).toHaveBeenCalledWith(
+      '11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a',
+      'fragment1-id'
+    );
+  });
+
 });
