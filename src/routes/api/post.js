@@ -12,7 +12,7 @@ const post = async (req, res) => {
         // Check if the Content-Type is supported
         if (!Fragment.isSupportedType(type)) {
             logger.warn(`Unsupported Content-Type: ${type}`);
-            return res.status(415).json(createErrorResponse(415, `Unsupported Content-Type: ${type}`));
+            return res.status(415).json(createErrorResponse(415, `Unsupported Content-Type`));
         }
 
         logger.debug('Creating a new fragment');
