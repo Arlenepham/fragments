@@ -51,6 +51,6 @@ describe('POST /fragments', () => {
 
     // Check that the response contains an error message related to unsupported content type
     expect(response.body).toHaveProperty('error');
-    expect(response.body.error.message).toBe('Unsupported Content-Type: application/unsupported');
+    expect(response.body.error.message).toBe('Unsupported Content-Type');
 });
 });
