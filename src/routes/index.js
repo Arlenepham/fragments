@@ -42,5 +42,21 @@ router.get('/', (req, res) => {
   });
   //router.post('/fragments', rawBody(), post);
 });
+// src/routes/index.js
+
+const { hostname } = require('os');
+router.get('/', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.status(200).json(
+    createSuccessResponse({
+      // TODO: make sure these are changed for your name and repo
+      author: 'Arlene Pham',
+      githubUrl: 'https://github.com/Arlenepham/fragments',
+      version,
+      // Include the hostname in the response
+      hostname: hostname(),
+    })
+  );
+});
 
 module.exports = router;
