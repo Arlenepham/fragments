@@ -40,11 +40,11 @@ module.exports = async (req, res) => {
     const ownerId = req.user;
 
     const fragment = await Fragment.byId(ownerId, id);
-    if (!fragment) {
-      return res.status(404).json(createErrorResponse(404, 'Fragment not found'));
-    }
+    // if (!fragment) {
+    //   return res.status(404).json(createErrorResponse(404, 'Fragment not found'));
+    // }
 
-        // Check if the request is specifically for metadata (GET /fragments/:id/info)
+    // Check if the request is specifically for metadata (GET /fragments/:id/info)
     if (req.path.endsWith('/info')) {
       const fragmentMetadata = {
         id: fragment.id,
@@ -54,17 +54,19 @@ module.exports = async (req, res) => {
         type: fragment.type,
         size: fragment.size,
       };
-   res.status(200).json(createSuccessResponse({ fragment: fragmentMetadata }));}
-   else {
-    const fragmentData = await fragment.getData();
+      res.status(200).json(createSuccessResponse({ fragment: fragmentMetadata }));
+    } else {
+      const fragmentData = await fragment.getData();
 
-    // Set Content-Type to match the fragment's type
-    res.setHeader('Content-Type', fragment.type);
+      // Set Content-Type to match the fragment's type
+      res.setHeader('Content-Type', fragment.type);
 
-    res.status(200).send(fragmentData); // Send raw data
-   }  
-
+      res.status(200).send(fragmentData); // Send raw data
+    }
   } catch (error) {
+    if (error.message === 'Fragment not found') {
+      return res.status(404).json(createErrorResponse(404, 'Fragment not found'));
+    }
     logger.error('Error fetching fragment', { message: error.message });
     res.status(500).json(createErrorResponse(500, 'Internal Server Error'));
   }
