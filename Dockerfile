@@ -49,7 +49,7 @@ COPY --from=build /app/tests/.htpasswd ./tests/.htpasswd
 RUN npm ci --production
 
 # Switch to a non-root user
-USER node
+# USER node // commented this for ECS
 
 # Start the container and run the server
 CMD ["node", "src/server.js"]
