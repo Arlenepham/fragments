@@ -40,9 +40,9 @@ module.exports = async (req, res) => {
     const ownerId = req.user;
 
     const fragment = await Fragment.byId(ownerId, id);
-    // if (!fragment) {
-    //   return res.status(404).json(createErrorResponse(404, 'Fragment not found'));
-    // }
+    if (!fragment) {
+      throw Error("Fragment not found")
+    }
 
     // Check if the request is specifically for metadata (GET /fragments/:id/info)
     if (req.path.endsWith('/info')) {
