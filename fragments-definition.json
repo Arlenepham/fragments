@@ -32,11 +32,7 @@
                 {
                     "name": "AWS_COGNITO_CLIENT_ID",
                     "value": "1qt37448cabnt8tin83b8usa3f"
-                },
-                {
-                  "name":"AWS_S3_BUCKET_NAME",
-                  "value": "arlene.pham-fragments"
-                }
+                 }
             ],
             "environmentFiles": [],
             "mountPoints": [],
