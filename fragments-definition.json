@@ -32,7 +32,11 @@
                 {
                     "name": "AWS_COGNITO_CLIENT_ID",
                     "value": "1qt37448cabnt8tin83b8usa3f"
-                 }
+                },
+                {
+                  "name":"AWS_S3_BUCKET_NAME",
+                  "value": "arlene.pham-fragments"
+                }
             ],
             "environmentFiles": [],
             "mountPoints": [],
@@ -54,6 +58,7 @@
         }
     ],
     "family": "fragments-task",
+    "ipcMode": null,
     "taskRoleArn": "arn:aws:iam::265570718156:role/LabRole",
     "executionRoleArn": "arn:aws:iam::265570718156:role/LabRole",
     "networkMode": "awsvpc",
