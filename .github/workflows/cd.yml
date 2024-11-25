@@ -81,6 +81,11 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPO: fragments
           VERSION_TAG: ${{ github.ref_name }}
+          API_URL:  ${{ env.API_URL }}
+          AWS_REGION: us-east-1
+          AWS_COGNITO_POOL_ID: ${{ env.AWS_COGNITO_POOL_ID }}
+          AWS_COGNITO_CLIENT_ID: ${{ env.AWS_COGNITO_CLIENT_ID }} 
+          
         with:
           task-definition: fragments-definition.json
           # Match this with the name in fragments-definition.json
