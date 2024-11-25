@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:265570718156:task-definition/fragments-task:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:265570718156:task-definition/fragments-task:10",
     "containerDefinitions": [
         {
             "name": "fragments-container",
-            "image": "arlenepham24/fragments:latest",
+            "image": "265570718156.dkr.ecr.us-east-1.amazonaws.com/fragments:v0.9.8",
             "cpu": 256,
             "memoryReservation": 512,
             "portMappings": [
@@ -18,22 +18,36 @@
             "essential": true,
             "environment": [
                 {
+                    "name": "AWS_REGION",
+                    "value": "us-east-1"
+                },
+                {
+                    "name": "AWS_COGNITO_POOL_ID",
+                    "value": "us-east-1_h8fTzKHoX"
+                },
+                {
                     "name": "PORT",
                     "value": "80"
+                },
+                {
+                    "name": "AWS_S3_BUCKET_NAME",
+                    "value": "arlene.pham-fragments"
+                },
+                {
+                    "name": "NODE_ENV",
+                    "value": "production"
                 },
                 {
                     "name": "LOG_LEVEL",
                     "value": "debug"
                 },
                 {
-                  "name":"AWS_S3_BUCKET_NAME",
-                  "value": "arlene.pham-fragments"
+                    "name": "AWS_COGNITO_CLIENT_ID",
+                    "value": "1qt37448cabnt8tin83b8usa3f"
                 }
             ],
-            "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -43,8 +57,7 @@
                     "max-buffer-size": "25m",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         }
@@ -53,7 +66,7 @@
     "taskRoleArn": "arn:aws:iam::265570718156:role/LabRole",
     "executionRoleArn": "arn:aws:iam::265570718156:role/LabRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 10,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -62,6 +75,9 @@
         },
         {
             "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
@@ -74,6 +90,9 @@
         },
         {
             "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
@@ -99,7 +118,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-11-21T16:16:43.710Z",
+    "registeredAt": "2024-11-25T14:32:56.916Z",
     "registeredBy": "arn:aws:sts::265570718156:assumed-role/voclabs/user3497505=Pham,_Arlene",
     "tags": []
 }
