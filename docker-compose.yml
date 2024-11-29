@@ -42,7 +42,7 @@ services:
       - '8000:8000'
     # Run the database in memory, see:
     # https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.UsageNotes.html
-    command: ['-jar', 'DynamoDBLocal.jar', '-inMemory']
+    command: ['-jar', 'DynamoDBLocal.jar', '-inMemory','-sharedDb']
     
   localstack:
     # https://hub.docker.com/r/localstack/localstack

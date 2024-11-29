@@ -19,9 +19,15 @@ const post = async (req, res) => {
 
         // Create a new fragment with the ownerId and type
         const fragment = new Fragment({ ownerId: req.user, type });
-        await fragment.save();
-        await fragment.setData(req.body);
-
+        try{
+            await fragment.save();
+            await fragment.setData(req.body);
+        } catch(err)
+        {
+            logger.error({ message: err.message }, 'Error saving fragment during POST');
+            return res.status(500).json(createErrorResponse(500, 'Internal Server Error'));
+        }
+     
         // Set the correct Location header in the HTTP response after creating a new resource
         const apiUrl = process.env.API_URL || `http://${req.headers.host}`;
         const locationUrl = `${apiUrl}/v1/fragments/${fragment.id}`; // Constructing the full URL to the newly created fragment

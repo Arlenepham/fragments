@@ -98,7 +98,6 @@ jobs:
           environment-variables: |
             LOG_LEVEL=debug
             NODE_ENV=production
-            API_URL=${{ secrets.API_URL }}
             AWS_REGION=us-east-1
 
       - name: Deploy Amazon ECS task definition
