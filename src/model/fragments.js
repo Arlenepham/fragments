@@ -1,6 +1,7 @@
 // Use crypto.randomUUID() to create unique IDs, see:
 // https://nodejs.org/api/crypto.html#cryptorandomuuidoptions
 const { randomUUID } = require('crypto');
+//const {logger} = require('../logger')
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 //const contentType = require('content-type');
 
@@ -30,8 +31,8 @@ class Fragment {
     }
 
     this.ownerId = ownerId;
-    this.created = created ? this.parseDate(created) : new Date();
-    this.updated = updated ? this.parseDate(updated) : new Date();
+    this.created = created ? created : new Date().toISOString();
+    this.updated = updated ? updated : new Date().toISOString();
     this.type = type;
     this.size = size;
     this._mimeType = this.getMimeType(type);
@@ -91,7 +92,7 @@ class Fragment {
    * @returns Promise<void>
    */
   async save() {
-    this.updated = new Date(); // Update the timestamp before saving
+    this.updated = new Date().toISOString(); // Update the timestamp before saving
     await writeFragment(this); // Save the fragment metadata
 
     // If there is data, save it as well

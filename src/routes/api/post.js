@@ -40,8 +40,8 @@ const post = async (req, res) => {
             .json(createSuccessResponse({
                 fragment: {
                     id: fragment.id,
-                    created: fragment.created.toISOString(), // Format date to ISO string
-                    updated: fragment.updated.toISOString(), // Format date to ISO string
+                    created: fragment.created, 
+                    updated: fragment.updated, 
                     ownerId: fragment.ownerId,
                     type: fragment.type,
                     size: fragment.size // Assuming size is available and calculated
