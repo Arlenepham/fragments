@@ -124,7 +124,6 @@ class Fragment {
     }
     this.data = data; // Set the new data
     this.size = data.length; // Update size based on new data
-    //this.updated = new Date(); // Update the timestamp to reflect the new data
     await this.save(); // Save the updated fragment
   }
 

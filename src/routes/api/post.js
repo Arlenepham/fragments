@@ -20,7 +20,6 @@ const post = async (req, res) => {
         // Create a new fragment with the ownerId and type
         const fragment = new Fragment({ ownerId: req.user, type });
         try{
-            await fragment.save();
             await fragment.setData(req.body);
         } catch(err)
         {

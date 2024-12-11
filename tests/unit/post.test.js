@@ -8,13 +8,13 @@ describe('POST /fragments', () => {
   test('incorrect credentials are denied', () =>
     request(app).post('/v1/fragments').auth('invalid@email.com', 'incorrect_password').expect(401));
   // Valid credentials should allow fragment creation
-  test('authenticated users can create a fragment', async () => {
+ test('authenticated users can create a fragment', async () => {
     const response = await request(app)
       .post('/v1/fragments')
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/plain')
       .send(Buffer.from('This is a test fragment'));
-
+ 
     expect(response.statusCode).toBe(201);
 
     // Check the response body structure
