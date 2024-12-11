@@ -16,9 +16,9 @@ router.post('/fragments', rawBody(), post);
 // Define the route for GET /fragments/:id/info
 router.get('/fragments/:id/info', require('./getByID'));
 router.get('/fragments/:id.:ext', require('./convertExt'))
-router.get('/fragments/:id',require('./getByID'));
 router.delete('/fragments/:id',require('./delete'))
 router.put('/fragments/:id', rawBody(), require('./put'))
+router.get('/fragments/:id',require('./getByID'));
 
 
 module.exports = router;
