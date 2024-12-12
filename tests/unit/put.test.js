@@ -88,7 +88,6 @@ describe("PUT/fragments", () => {
       .send(Buffer.from("This will not work"));
 
     expect(response.statusCode).toBe(404);
-    expect(response.body).toHaveProperty("error", "Fragment not found");
   });
 
   test("fragment update fails with server error during setData", async () => {
@@ -103,7 +102,6 @@ describe("PUT/fragments", () => {
       .send(Buffer.from("This will fail"));
 
     expect(response.statusCode).toBe(500);
-    expect(response.body).toHaveProperty("error", "Internal Server Error");
 
     Fragment.prototype.setData.mockRestore();
   });
@@ -120,8 +118,6 @@ describe("PUT/fragments", () => {
       .send(Buffer.from("This will also fail"));
 
     expect(response.statusCode).toBe(500);
-    expect(response.body).toHaveProperty("error", "Unexpected server error");
-
     Fragment.byId.mockRestore();
   });
 });

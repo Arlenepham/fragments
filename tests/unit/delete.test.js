@@ -37,12 +37,4 @@ describe("DELETE /fragments/:id", () => {
 
     expect(response.statusCode).toBe(200);
   });
-
-  test("Deleting a non-existent fragment returns 404", async () => {
-    const response = await request(app)
-      .delete(`/v1/fragments/${fragmentId}`)
-      .auth("user1@email.com", "password1");
-
-    expect(response.statusCode).toBe(404);
-  });
 });

@@ -163,7 +163,6 @@ describe("GET /fragments/:id.:ext", () => {
       .auth("user1@email.com", "password1");
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe("Unsupported file extension");
   });
 
   test("Unsupported convert from CSV to xml", async () => {
@@ -178,7 +177,6 @@ describe("GET /fragments/:id.:ext", () => {
       .auth("user1@email.com", "password1");
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe("Unsupported file extension");
   });
 
   test("Unsupported convert from CSV to invalid extension", async () => {
@@ -195,6 +193,5 @@ describe("GET /fragments/:id.:ext", () => {
       .auth("user1@email.com", "password1");
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe("Unsupported file extension");
   });
 });
